@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360" role="img" aria-labelledby="title desc">
+  <title id="title">Pillowcase Link Converter workflow</title>
+  <desc id="desc">A four-step diagram showing input links, conversion, clipboard output, and JDownloader paste.</desc>
+  <rect width="1200" height="360" rx="28" fill="#0f172a"/>
+  <text x="600" y="55" text-anchor="middle" font-family="Segoe UI, Arial" font-size="30" font-weight="700" fill="#f8fafc">Pillowcase Link Converter</text>
+  <g font-family="Segoe UI, Arial">
+    <g transform="translate(45 105)">
+      <rect width="245" height="175" rx="18" fill="#1e293b" stroke="#38bdf8" stroke-width="3"/>
+      <text x="122" y="40" text-anchor="middle" font-size="20" font-weight="700" fill="#7dd3fc">1. Paste</text>
+      <text x="20" y="78" font-size="15" fill="#e2e8f0">Pillowcase Links.txt</text>
+      <text x="20" y="111" font-size="13" fill="#94a3b8">pillows.su/f/FILE_ID</text>
+      <text x="20" y="141" font-size="13" fill="#94a3b8">Mixed text is allowed</text>
+    </g>
+    <text x="320" y="195" font-size="42" fill="#64748b">→</text>
+    <g transform="translate(355 105)">
+      <rect width="245" height="175" rx="18" fill="#1e293b" stroke="#a78bfa" stroke-width="3"/>
+      <text x="122" y="40" text-anchor="middle" font-size="20" font-weight="700" fill="#c4b5fd">2. Convert</text>
+      <text x="20" y="82" font-size="14" fill="#e2e8f0">Double-click shortcut</text>
+      <text x="20" y="115" font-size="13" fill="#94a3b8">Validate + deduplicate</text>
+      <text x="20" y="145" font-size="13" fill="#94a3b8">Log unrelated URLs</text>
+    </g>
+    <text x="630" y="195" font-size="42" fill="#64748b">→</text>
+    <g transform="translate(665 105)">
+      <rect width="245" height="175" rx="18" fill="#1e293b" stroke="#34d399" stroke-width="3"/>
+      <text x="122" y="40" text-anchor="middle" font-size="20" font-weight="700" fill="#6ee7b7">3. Clipboard</text>
+      <text x="20" y="80" font-size="13" fill="#e2e8f0">api.pillows.su/api/</text>
+      <text x="20" y="104" font-size="13" fill="#e2e8f0">download/FILE_ID</text>
+      <text x="20" y="141" font-size="13" fill="#94a3b8">Original input is preserved</text>
+    </g>
+    <text x="940" y="195" font-size="42" fill="#64748b">→</text>
+    <g transform="translate(975 105)">
+      <rect width="180" height="175" rx="18" fill="#1e293b" stroke="#fbbf24" stroke-width="3"/>
+      <text x="90" y="40" text-anchor="middle" font-size="20" font-weight="700" fill="#fde68a">4. Paste</text>
+      <text x="90" y="85" text-anchor="middle" font-size="15" fill="#e2e8f0">JDownloader</text>
+      <text x="90" y="118" text-anchor="middle" font-size="15" fill="#e2e8f0">LinkGrabber</text>
+      <text x="90" y="150" text-anchor="middle" font-size="14" fill="#94a3b8">Ctrl+V</text>
+    </g>
+  </g>
+</svg>

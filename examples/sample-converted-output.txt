@@ -1,0 +1,2 @@
+https://api.pillows.su/api/download/0123456789abcdef0123456789abcdef
+https://api.pillows.su/api/download/fedcba9876543210fedcba9876543210
