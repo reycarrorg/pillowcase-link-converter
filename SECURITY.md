@@ -1,6 +1,6 @@
 # Security
 
-This utility operates locally and does not transmit cookies, credentials, browser history, or files. It reads a text file, transforms matching URLs, writes a local log, and updates the Windows clipboard.
+This utility operates locally and does not transmit cookies, credentials, browser history, or files. It edits text, transforms matching URLs, writes local before/after history, and optionally updates the Windows clipboard.
 
 Do not paste account cookies, passwords, API keys, or other secrets into `Pillowcase Links.txt`.
 

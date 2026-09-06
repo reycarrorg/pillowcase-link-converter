@@ -1,118 +1,86 @@
+<p align="center">
+  <img src="assets/PillowcaseLinkConverter.png" width="128" alt="Pillowcase Link Converter icon">
+</p>
+
 # Pillowcase Link Converter
 
-A small Windows utility that converts Pillowcase landing-page URLs into the corresponding public API download-link format, copies the converted links to the clipboard, and keeps a persistent deduplicated log of unrelated URLs.
+A friendly, local Windows app for turning Pillowcase share-page URLs into API download links that can be pasted into JDownloader. The text file is now the app: paste, type, edit, open, save, convert, and restore from one interface.
 
-![Pillowcase Link Converter workflow](docs/workflow.png)
+## See it in action
+
+Start with a mixed document in the light theme. Notes, Markdown, blank lines, ordering, and unrelated URLs can stay in the same editor:
+
+![Editing a mixed link list in the light theme](docs/screenshots/editor-light.png)
+
+After conversion, the matching link changes in place and the result card reports exactly what happened. Here is the same document in dark mode:
+
+![A completed in-place conversion in dark mode](docs/screenshots/conversion-dark.png)
+
+> The app transforms text only. It does not download files, contact Pillowcase, open JDownloader, read cookies, bypass access controls, or inspect linked content.
 
 ## When and why to use it
 
-Use this tool when you have a text list containing URLs in this format:
+Use it when a list contains `https://pillows.su/f/<32-character-id>` share links but JDownloader needs `https://api.pillows.su/api/download/<32-character-id>` links.
 
-```text
-https://pillows.su/f/0123456789abcdef0123456789abcdef
-```
-
-but a download manager such as JDownloader needs the direct API form:
-
-```text
-https://api.pillows.su/api/download/0123456789abcdef0123456789abcdef
-```
-
-The tool is useful for batches copied from documents, messages, or webpages because it:
-
-- accepts HTTP or HTTPS Pillowcase landing-page links;
-- extracts links from plain text and Markdown;
-- validates the 32-character hexadecimal file identifier;
-- removes duplicate Pillowcase links;
-- copies only converted API links to the clipboard;
-- logs unrelated URLs in a persistent, deduplicated `Unconverted Links.txt` file; and
-- preserves the original `Pillowcase Links.txt` input after every run.
-
-It does **not** download files, open JDownloader, handle cookies, bypass access controls, or verify the safety or legality of linked content.
-
-## Requirements
-
-- Windows 10 or Windows 11
-- Windows PowerShell 5.1 or later
-- Optional: JDownloader 2 or another download manager that accepts newline-separated direct URLs
+It is especially useful for large lists copied from notes, messages, or Markdown. Matching URLs are replaced **inside the original text**, so headings, notes, blank lines, Markdown, ordering, and repeated links stay where they were.
 
 ## Quick start
 
-1. Download the repository ZIP from GitHub and extract the entire folder.
-2. Double-click `Create Shortcut.cmd` once.
-3. Open `Pillowcase Links.txt`.
-4. Paste a list of original `pillows.su/f/...` links and save the file.
-5. Double-click the generated `Pillowcase Link Converter.lnk` shortcut.
-6. Read the confirmation message.
-7. Open JDownloader, select **LinkGrabber**, and press **Ctrl+V**.
-8. Review the detected filenames, sizes, hosts, and availability before starting downloads.
+1. Download the repository ZIP and extract it.
+2. Double-click `Build App.cmd` once. This uses Windows' built-in .NET Framework tools—no developer kit or administrator access is required.
+3. Open `dist\PillowcaseLinkConverter.exe` (or run `Create Shortcut.cmd`).
+4. Paste text into the large editor, or choose **Open** to work with an existing `.txt` file.
+5. Choose **Convert links** or press **Ctrl+Enter**.
+6. In JDownloader, open **LinkGrabber** and press **Ctrl+V**.
+7. Review the detected filenames, sizes, hosts, and availability before starting downloads.
 
-Windows may show a security prompt for scripts downloaded from the internet. Review the scripts before running them. The shortcut uses a per-process PowerShell execution-policy override; it does not change the computer's global execution policy.
+On first launch, the app explains this flow. **Help → How to use** opens it again at any time.
+
+## What the interface protects
+
+- A complete before/after History record is created for every conversion that changes text.
+- **System**, **Light**, and **Dark** appearance modes are available in Settings and persist between launches.
+- Opened files are updated with a verified atomic replacement; the app asks first by default.
+- **Restore before** puts back the snapshot from the last conversion and records the restore.
+- UTF-8, UTF-8 BOM, UTF-16, and original CRLF/LF line endings are preserved when a file is opened and saved.
+- Already-converted API links are left alone, making repeat runs safe.
+- Unsupported URLs stay exactly where they were and are listed in that run's history.
+- The clipboard receives a deduplicated list, while the editor and Before/After occurrence lists retain repetitions.
+
+The default history location is `%LOCALAPPDATA%\Pillowcase Link Converter\History`; it can be changed in **Tools → Settings**. The same screen controls automatic clipboard copying, the opened-file warning, and appearance.
 
 ## Example
 
-Input copied into `Pillowcase Links.txt`:
-
 ```text
-Link(s)
-[https://pillows.su/f/0123456789abcdef0123456789abcdef](https://pillows.su/f/0123456789abcdef0123456789abcdef)
-https://example.com/unrelated-file.zip
-https://pillows.su/f/fedcba9876543210fedcba9876543210
+Before: [Song](https://pillows.su/f/0123456789abcdef0123456789abcdef)
+After:  [Song](https://api.pillows.su/api/download/0123456789abcdef0123456789abcdef)
 ```
 
-Clipboard output:
+The sample ID is fictional.
 
-```text
-https://api.pillows.su/api/download/0123456789abcdef0123456789abcdef
-https://api.pillows.su/api/download/fedcba9876543210fedcba9876543210
-```
+## History layout
 
-Persistent `Unconverted Links.txt` entry:
+Each completed run gets a unique timestamped folder containing `Original Document.txt`, `Converted Document.txt`, occurrence-preserving `Before Links.txt` and `After Links.txt`, deduplicated `Converted Links.txt`, `Unsupported Links.txt`, and `metadata.json` with hashes, encoding details, counts, and completion state. No-op runs do not create History noise.
 
-```text
-https://example.com/unrelated-file.zip
-```
-
-The sample IDs are intentionally fictional.
-
-## Persistent unconverted-link history
-
-`Unconverted Links.txt` is created when needed. New unrelated URLs are merged with the existing list, and duplicates are removed across runs. A later batch with no unrelated URLs does not clear the existing history.
-
-The runtime log and generated `.lnk` shortcut are excluded from Git so private link history and machine-specific paths are not accidentally committed.
-
-## Run without a shortcut
-
-From PowerShell in the project folder:
+## Build and test
 
 ```powershell
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\Run Converter.ps1"
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\Build.ps1" -Test
 ```
 
-## Test
-
-Run the included dependency-free test:
-
-```powershell
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\tests\Test-Converter.ps1"
-```
-
-Expected result:
-
-```text
-All Pillowcase Link Converter tests passed.
-```
+The automated suite covers contextual and Markdown replacement, duplicates, unsupported URLs, idempotence, empty input, encoding/BOM/newline round trips, append-only history, atomic replacement, and a 10,000-link batch. The original PowerShell converter remains available through `Run Converter.ps1` for legacy users.
 
 ## Privacy and safety
 
-- Processing occurs locally.
-- The converter never reads browser cookies or credentials.
-- Do not put secrets in the input text file.
-- Inspect download-manager results before starting a batch.
+- Processing is entirely local; there are no accounts, telemetry, or network requests.
+- The app never reads browser cookies or credentials.
+- Do not put secrets in the editor.
 - Scan downloaded files before opening them.
-- Download only files you are authorized to access.
+- Download only material you are authorized to access.
 
-## Project status and compatibility
+## Compatibility and status
+
+Windows 10 or 11 with .NET Framework 4.8. The executable and generated shortcut use the included Pillowcase Link Converter app icon.
 
 This project implements a URL-format transformation observed in August 2026. Pillowcase may change its URLs or API behavior without notice. The project is not affiliated with Pillowcase, JDownloader, or AppWork GmbH.
 

@@ -3,3 +3,4 @@ Unconverted Links.txt
 *.tmp
 *.bak
 .edge-render-profile/
+dist/*.Tests.exe
