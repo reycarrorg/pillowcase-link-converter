@@ -1,0 +1,19 @@
+{
+  "name": "pillowcase-link-converter-web",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "packageManager": "pnpm@11.19.0",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --test tests/converter.test.mjs"
+  },
+  "dependencies": {
+    "idb": "8.0.3",
+    "linkify-it": "5.0.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.12"
+  }
+}
