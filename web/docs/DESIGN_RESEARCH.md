@@ -43,6 +43,12 @@ The workbench shows source and results together on desktop, stacks on narrow scr
 
 System fonts, an ink/teal palette, modest borders and native controls keep the tool recognizable and readable without external images or decorative dependencies. Light/dark modes use shared semantic tokens. Functional icons are local and do not need a paid generation pipeline.
 
+### Visual refinement: OpenAI clarity / Apple precision
+
+The second design pass replaces the initial ink/teal theme with cool porcelain and neutral graphite, a unified split document workbench, compact introductory copy, rounded capsule actions, segmented result controls, consistent functional SVGs and grouped native settings. Restrained materials are limited to chrome/backdrop; document surfaces remain legible and opaque. Main content remains immediately accessible. No Apple or OpenAI logo, proprietary typeface, affiliation claim, generated artwork or new UI dependency is introduced.
+
+The existing design specialist supplied one bounded read-only consultation using [OpenAI brand/design guidance](https://openai.com/brand/), [Apple materials guidance](https://developer.apple.com/design/human-interface-guidelines/materials) and [Apple motion guidance](https://developer.apple.com/design/human-interface-guidelines/motion). These inform the direction rather than prescribe a pixel-identical branded clone. Native controls, the system font stack, the existing local icon geometry and the installed converter/storage libraries are reused. Motion is brief and functional; reduced-motion and reduced-transparency preferences have CSS fallbacks. Browser font defaults are respected; controls and headings can wrap. This applies resource advantage through reuse and targeted verification, not an external-agent campaign or a framework migration.
+
 ## File and privacy boundaries
 
 [The textarea standard](https://html.spec.whatwg.org/multipage/form-elements.html#the-textarea-element) and [TextDecoder](https://developer.mozilla.org/en-US/docs/Web/API/TextDecoder) inform keeping an untouched decoded source string separate from the DOM value. Nonedited imported document exports preserve supported BOM and newline conventions. Editing deliberately normalizes mixed endings to the displayed convention. Unlike the Windows edition, the website cannot atomically overwrite an arbitrary original file: explicit exports are the safe, portable behavior.

@@ -27,6 +27,10 @@ The In-app Browser showed an export-request status without surfacing a completed
 
 Firefox, Safari, Edge and mobile physical devices have not been individually exercised. No Windows executable/build/runtime check was rerun because Windows source was preserved. No formal screen-reader or WCAG conformance audit was performed. File-host availability and linked-content safety are outside the converter.
 
+## Second visual pass
+
+The porcelain/graphite redesign changes HTML and CSS only; converter, storage, export and WebMCP JavaScript are unchanged. The local preview was exercised in light and dark appearance, with example conversion producing 2 replacements / 1 unique link / 1 other URL, arrow-key result-tab switching and the grouped settings dialog. No page-wide horizontal overflow was observed at 1280 or 320 CSS pixels, and the checked console sample contained no warning/error logs. These are local-preview observations, not physical-browser/device or formal accessibility certification. Export acceptance limits above remain unchanged.
+
 ## Quick acceptance test
 
 1. Use **Try an example**, then **Convert links**. Expect 2 replacements, 1 unique link and 1 other URL.
