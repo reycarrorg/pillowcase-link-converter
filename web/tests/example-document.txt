@@ -1,0 +1,3 @@
+# Fictional test document
+[Song](https://pillows.su/f/0123456789abcdef0123456789abcdef)
+Keep these notes and https://example.com/reference.

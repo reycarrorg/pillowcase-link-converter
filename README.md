@@ -4,7 +4,15 @@
 
 # Pillowcase Link Converter
 
-A friendly, local Windows app for turning Pillowcase share-page URLs into API download links that can be pasted into JDownloader. The text file is now the app: paste, type, edit, open, save, convert, and restore from one interface.
+A friendly local Windows app, plus a browser-local website edition, for turning Pillowcase share-page URLs into API download links that can be pasted into JDownloader. The text file is the app: paste, type, edit, open, convert, and restore from one interface.
+
+## Browser / ChatGPT Sites edition
+
+The new [browser workbench](web/README.md) lives in `web/` alongside the unchanged Windows app. It preserves notes, Markdown, ordering and repeated links, while offering a deduplicated download list, text-file import/export, before restoration, optional device-local history and system/light/dark themes. The initial ChatGPT Sites deployment is owner-private; the source here is public and can be served as a static site.
+
+The browser app processes documents locally and never fetches linked hosts. Original files are never overwritten; exports go through the browser's download handling. Optional stored history is unencrypted and browser-local. Website hosting can still log normal page traffic. Read the [research and reuse decisions](web/docs/DESIGN_RESEARCH.md) and [actual verification scope](web/docs/VERIFICATION.md) before relying on the web edition.
+
+The Windows instructions and screenshots below still describe the existing desktop app. Its source, legacy script and MIT license are preserved.
 
 ## See it in action
 

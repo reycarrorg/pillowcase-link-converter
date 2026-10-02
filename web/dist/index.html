@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="Convert Pillowcase links inside your notes and documents. Local processing, copy-ready links, and reversible changes.">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>Pillowcase Link Converter</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23076c58'/%3E%3Cpath d='M14 10h-3a6 6 0 0 0 0 12h3m4-12h3a6 6 0 0 1 0 12h-3M10 16h12' fill='none' stroke='white' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link" href="#document">Skip to document</a>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark" aria-hidden="true">⌁</span><span>Pillowcase<span class="brand-sub">Link Converter</span></span></div>
+    <div class="header-actions"><span class="local-label">Processed on your device</span><button id="settings-open" class="icon-button" aria-label="Open settings">⚙</button></div>
+  </header>
+  <main class="workspace">
+    <div class="intro"><div><p class="eyebrow">THE LINK WORKBENCH</p><h1>Same document.<br> <span>Ready-to-use links.</span></h1><p>Turn Pillowcase share links into download links. Keep your notes, formatting, and ordering intact.</p></div><div class="format-note"><span class="format-label">SUPPORTED FORMAT</span><code>pillows.su/f/<span>32-character ID</span></code><span>No files downloaded. No links opened.</span></div></div>
+    <div id="feedback" class="feedback" role="status" aria-live="polite" aria-atomic="true" hidden></div>
+    <div class="workbench">
+      <section class="panel editor-panel" aria-labelledby="document-title">
+        <div class="panel-heading"><div><span class="panel-step">01</span><h2 id="document-title">Your document</h2></div><button id="choose-file" class="button subtle">Choose text file</button><input id="file-picker" class="visually-hidden" type="file" accept=".txt,text/plain" tabindex="-1" aria-label="Choose text file"></div>
+        <div class="file-strip"><span id="file-name">Untitled document</span><span id="file-detail">UTF-8 · local only</span></div>
+        <label class="visually-hidden" for="document">Document containing Pillowcase share links</label>
+        <textarea id="document" spellcheck="false" autocomplete="off" autocapitalize="off" aria-describedby="editor-help" placeholder="Paste your links, notes, or Markdown here…"></textarea>
+        <div class="editor-note"><span id="editor-help">Notes and repeated links stay in the document.</span><button id="load-example" class="text-button">Try an example</button></div>
+        <div class="editor-actions"><button id="convert" class="button primary">Convert links <kbd>⌘ / Ctrl ↵</kbd></button><button id="restore" class="button subtle" disabled>Restore before</button><button id="new-document" class="text-button">New document</button></div>
+      </section>
+      <section class="panel results-panel" aria-labelledby="results-title">
+        <div class="panel-heading"><div><span class="panel-step">02</span><h2 id="results-title">Your results</h2></div><span id="result-state" class="state-label">Waiting for input</span></div>
+        <div id="receipt" class="receipt" hidden><div><strong id="changed-count">0</strong><span>replacements</span></div><div><strong id="unique-count">0</strong><span>unique links</span></div><div><strong id="review-count">0</strong><span>other URLs</span></div></div>
+        <div class="tabs" role="tablist" aria-label="Result views"><button id="tab-links" role="tab" aria-selected="true" aria-controls="output-panel" tabindex="0" data-view="links">Download links</button><button id="tab-document" role="tab" aria-selected="false" aria-controls="output-panel" tabindex="-1" data-view="document">Document</button><button id="tab-unsupported" role="tab" aria-selected="false" aria-controls="output-panel" tabindex="-1" data-view="unsupported">Other URLs</button></div>
+        <div id="output-panel" role="tabpanel" aria-labelledby="tab-links" class="output-panel"><div id="empty-state" class="empty-state"><span class="empty-glyph" aria-hidden="true">⌁</span><h3>A cleaner handoff.</h3><p>Your converted links will appear here, ready to copy into JDownloader.</p><span>The document keeps repeats.<br>The copy list doesn’t.</span></div><label for="output" class="visually-hidden" id="output-label">Newly converted download links</label><textarea id="output" readonly spellcheck="false" aria-describedby="output-hint" hidden></textarea></div>
+        <p id="output-hint" class="output-hint">Only links converted in this run appear in the download list.</p>
+        <div class="output-actions"><button id="copy" class="button primary" disabled>Copy links</button><button id="export" class="button subtle" disabled>Export .txt</button><button id="select-output" class="text-button" disabled>Select text</button></div>
+      </section>
+    </div>
+    <div class="below-workbench"><details class="history" id="history-section"><summary>Conversion history <span id="history-count">0</span><span class="history-location" id="history-location">This session</span></summary><p class="history-help">Changed runs keep a before/after snapshot. A repeat conversion creates no extra history.</p><div id="history-list" class="history-list"><p class="muted">No conversions yet.</p></div></details><details class="help"><summary>How it works</summary><p>Paste text or choose a local text file, then convert. Matching links change in the document; the download list contains one copy of each newly converted link. Already-converted links and other URLs stay untouched.</p><p>Copy the download list into JDownloader’s LinkGrabber. Conversion only changes URL format; it does not check availability or grant access to files.</p><p>Your original file is never overwritten. Document exports retain supported imported encoding and line endings. Editing a file normalizes mixed line endings to its displayed convention.</p><p>The app does not send your document or contact linked hosts. ChatGPT hosting may record ordinary website traffic. Don’t paste secrets; only access material you’re authorized to use.</p><a href="https://github.com/reycarrorg/pillowcase-link-converter" target="_blank" rel="noopener noreferrer">Source project</a></details></div>
+    <footer><span>Text conversion, not a downloader.</span><span>Independent tool · not affiliated with Pillowcase or JDownloader</span></footer>
+  </main>
+  <dialog id="settings-dialog"><form method="dialog"><div class="dialog-heading"><h2>Settings</h2><button class="icon-button" aria-label="Close settings">×</button></div></form><label class="setting-label" for="theme">Appearance</label><select id="theme"><option value="system">Match device</option><option value="light">Light</option><option value="dark">Dark</option></select><label class="check-setting"><input type="checkbox" id="auto-copy">Copy newly converted links after conversion</label><p class="setting-note">If the browser denies clipboard access, use Copy links or Select text.</p><label class="check-setting"><input type="checkbox" id="persistent-history">Save history on this device</label><p class="setting-note">Off by default. When enabled, future before/after documents are saved in this browser. Not encrypted or synced; browser storage can be cleared. Turning it off leaves existing records intact.</p><button id="download-history" class="button subtle">Export available history</button><p class="setting-note">Only appearance and these preferences are saved automatically. Unsaved document text is lost on refresh.</p></dialog>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
